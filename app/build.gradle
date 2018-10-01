@@ -1,0 +1,82 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    flavorDimensions "papp"
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "mercadolibre.paymentapp"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+    productFlavors {
+        stage {
+            dimension "papp"
+            applicationIdSuffix ".stage"
+            versionCode 1
+            buildConfigField 'String', 'HOST', '"https://api.mercadopago.com/"'
+            buildConfigField 'String', 'PUBLIC_KEY', '"?public_key=APP_USR-0d2fd9c2-a29a-40d0-9ae2-add0b793ecf7"'
+        }
+    }
+}
+
+dependencies {
+    def lifecycle_version = "1.1.1"
+    def support_version = "28.0.0-rc01"
+    def uber_version = "1.0.0-RC1"
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "com.android.support:design:$support_version"
+    implementation "com.android.support:recyclerview-v7:$support_version"
+    implementation "com.android.support:cardview-v7:$support_version"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+
+    // ViewModel and LiveData
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+
+    //Butterknie
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    // RxJava
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+
+    //Uber - autoDispose
+    implementation "com.uber.autodispose:autodispose:$uber_version"
+    implementation "com.uber.autodispose:autodispose-lifecycle-jdk8:$uber_version"
+    implementation "com.uber.autodispose:autodispose-android-archcomponents:$uber_version"
+
+    // Retrofit and OkHttp
+    // OkHttp interceptors for logging
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.9.1'
+    implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.8.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
