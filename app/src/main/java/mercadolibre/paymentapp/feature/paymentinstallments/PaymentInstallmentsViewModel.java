@@ -28,7 +28,6 @@ public class PaymentInstallmentsViewModel extends ViewModel {
     paymentMethodRepository.getPaymentInstallment(typeCardId, bankId)
         .as(autoDisposable(AndroidLifecycleScopeProvider.from(lifecycle)))
         .subscribe(installments -> {
-
           paymentInstallment.setValue(ApiResource.success(installments));
         }, error -> {
           paymentInstallment.setValue(ApiResource.error("",null));
